@@ -21,12 +21,12 @@ BINDIR = bin
 
 LIBINCLUDE = -I/usr/include \
              -I/usr/local/include
-             
+
 
 LDPATH =     -L/usr/local/lib/ \
              -L/usr/lib/x86_64-linux-gnu
 
-LIBS =       coap-2 \
+LIBS =       coap-3 \
              qcbor m \
              crypto ssl \
              mbedcrypto \
@@ -116,16 +116,16 @@ $(OBJDIR)/util/%.o: $(SRCDIR)/util/%.c
 
 ## --- libraries ---------------------------------------------------------- ##
 
-libs: 
+libs:
 	$(MAKE) -C lib/
 
-libs.static: 
+libs.static:
 	$(MAKE) -C lib/ all.static
 
-libs.install: 
+libs.install:
 	$(MAKE) -C lib/ install
 
-libs.uninstall: 
+libs.uninstall:
 	$(MAKE) -C lib/ uninstall
 
 

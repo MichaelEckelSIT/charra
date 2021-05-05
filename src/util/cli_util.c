@@ -20,12 +20,13 @@
 
 #include "cli_util.h"
 
-#include "../common/charra_log.h"
-#include "coap_util.h"
-#include "io_util.h"
 #include <errno.h>
 #include <getopt.h>
 #include <stdlib.h>
+
+#include "../common/charra_log.h"
+#include "coap_util.h"
+#include "io_util.h"
 
 /* command line argument handling */
 static const struct option verifier_options[] = {{"help", no_argument, 0, 'h'},
@@ -52,14 +53,15 @@ int parse_command_line_arguments(int argc, char** argv, cli_config* variables) {
 	}
 	for (;;) {
 		int index = -1;
-		int identifier = getopt_long(argc, argv, ((caller == VERIFIER) ? "hvl:c:p:i:t:f:s:" : "hvl:c:p:i::"),
+		int identifier = getopt_long(argc, argv,
+			((caller == VERIFIER) ? "hvl:c:p:i:t:f:s:" : "hvl:c:p:i::"),
 			((caller == VERIFIER) ? verifier_options : attester_options),
 			&index);
 
 		if (identifier == -1)
 			return 0; // end of command line arguments reached
 
-		else if (identifier == 'h' || identifier =='?') {
+		else if (identifier == 'h' || identifier == '?') {
 			// print help message
 			printf("\nUsage: %s [OPTIONS]\n", log_name);
 			printf(
@@ -94,7 +96,8 @@ int parse_command_line_arguments(int argc, char** argv, cli_config* variables) {
 				printf(" -s, --pcr-selection=X1[,X2...]: Specifies which "
 					   "PCRs to check on the attester. Each X references one "
 					   "PCR. PCR numbers shall be ordered from smallest to "
-					   "biggest, comma-seperated and without whitespace. If this option is not "
+					   "biggest, comma-seperated and without whitespace. If "
+					   "this option is not "
 					   "given, these PCRs are checked: ");
 				for (uint32_t i = 0;
 					 i < *variables->verifier_config.tpm_pcr_selection_len;
@@ -146,8 +149,9 @@ int parse_command_line_arguments(int argc, char** argv, cli_config* variables) {
 			int result = charra_coap_log_level_from_str(
 				optarg, variables->common_config.coap_log_level);
 			if (result != 0) {
-				charra_log_error("[%s] Error while parsing '-c/--coap-log-level': "
-								 "Unrecognized argument %s",
+				charra_log_error(
+					"[%s] Error while parsing '-c/--coap-log-level': "
+					"Unrecognized argument %s",
 					log_name, optarg);
 				return -1;
 			}
@@ -280,7 +284,7 @@ int parse_command_line_arguments(int argc, char** argv, cli_config* variables) {
 
 		// undefined behaviour, probably because getopt_long returned an
 		// identifier which is not checked here
-undefined:
+	undefined:
 		charra_log_error(
 			"[%s] Error: Undefined behaviour while parsing command line",
 			log_name);

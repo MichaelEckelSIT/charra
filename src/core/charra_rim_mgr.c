@@ -72,7 +72,7 @@ static CHARRA_RC handle_end_of_pcr_set(uint8_t** reference_pcrs,
 
 	charra_log_debug(
 		"Checking PCR composite digest at PCR set index %d:", pcr_set_index);
-	CHARRA_RC rc = compute_and_check_PCR_digest(
+	CHARRA_RC rc = compute_and_check_pcr_digest(
 		reference_pcrs, reference_pcr_selection_len, attest_struct);
 	if (rc == CHARRA_RC_ERROR) {
 		charra_log_error("Unexpected error while computing PCR digest at index "
@@ -227,7 +227,7 @@ CHARRA_RC charra_check_pcr_digest_against_reference(const char* filename,
 				reference_pcrs[i][j] = 0;
 			}
 		}
-		charra_rc = compute_and_check_PCR_digest(
+		charra_rc = compute_and_check_pcr_digest(
 			reference_pcrs, reference_pcr_selection_len, attest_struct);
 	}
 

@@ -21,7 +21,7 @@
 #include "coap_util.h"
 
 #include <arpa/inet.h>
-#include <coap2/coap.h>
+#include <coap3/coap.h>
 #include <stdbool.h>
 #include <string.h>
 
@@ -87,23 +87,21 @@ coap_session_t* charra_coap_new_client_session(coap_context_t* coap_context,
 }
 
 coap_pdu_t* charra_coap_new_request(coap_session_t* session,
-	coap_message_t msg_type, coap_request_t method, coap_optlist_t** options,
-	const uint8_t* data, const size_t data_len) {
+	coap_pdu_type_t pdu_type, coap_pdu_code_t pdu_code,
+	coap_optlist_t** options, const uint8_t* data, const size_t data_len) {
 	coap_pdu_t* pdu = NULL;
 
 	/* create new PDU */
-	if ((pdu = coap_new_pdu(session)) == NULL) {
+	if ((pdu = coap_new_pdu(pdu_type, pdu_code, session)) == NULL) {
 		charra_log_error("[" LOG_NAME "] Cannot create PDU");
 		goto error;
 	}
 
-	/* generate new message ID */
-	coap_message_id_t msg_id = coap_new_message_id(session);
+	// /* generate new message ID */
+	// coap_message_id_t msg_id = coap_new_message_id(session);
 
-	/* set up PDU */
-	pdu->type = msg_type;
-	pdu->mid = msg_id;
-	pdu->code = method;
+	// /* set up PDU */
+	// pdu->tid = msg_id;
 
 	/* generate new token */
 	coap_token_t token = {0};

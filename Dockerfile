@@ -87,12 +87,12 @@ RUN make -j all so \
 RUN rm -rfv /tmp/qcbor
 
 ## t_cose
-RUN git clone --depth=1 --recursive -b 'master' \
-	'https://github.com/laurencelundblade/t_cose.git' /tmp/t_cose
-WORKDIR /tmp/t_cose
-RUN make -j -f Makefile.psa libt_cose.a libt_cose.so \
-	&&  make -f Makefile.psa install install_so
-RUN rm -rfv /tmp/t_cose
+#RUN git clone --depth=1 --recursive -b 'master' \
+#	'https://github.com/laurencelundblade/t_cose.git' /tmp/t_cose
+#WORKDIR /tmp/t_cose
+#RUN make -j -f Makefile.psa libt_cose.a libt_cose.so \
+#	&&  make -f Makefile.psa install install_so
+#RUN rm -rfv /tmp/t_cose
 
 ## install debugging tools
 RUN apt-get update \

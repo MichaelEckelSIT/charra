@@ -169,7 +169,7 @@ CHARRA_RC charra_crypto_hash(mbedtls_md_type_t hash_algo,
 	/* init */
 	const mbedtls_md_info_t* hash_info = mbedtls_md_info_from_type(hash_algo);
 	mbedtls_md_context_t ctx = {0};
-	if ((mbedtls_md_init_ctx(&ctx, hash_info)) != 0) {
+	if ((mbedtls_md_setup(&ctx, hash_info, 0)) != 0) {
 		r = CHARRA_RC_CRYPTO_ERROR;
 		goto error;
 	}
@@ -311,7 +311,7 @@ error:
 	return charra_r;
 }
 
-CHARRA_RC compute_and_check_PCR_digest(uint8_t** pcr_values,
+CHARRA_RC compute_and_check_pcr_digest(uint8_t** pcr_values,
 	uint32_t pcr_values_len, const TPMS_ATTEST* const attest_struct) {
 	uint8_t pcr_composite_digest[TPM2_SHA256_DIGEST_SIZE] = {0};
 	/* TODO use crypto-agile (generic) version
